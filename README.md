@@ -52,3 +52,20 @@
 แต้ม: 2.1, 3.1, 3.2, 3.3
 
 ไปป์: 1.1, 1.2, 6.1, 6.2
+
+Clone GitHub:
+git clone https://github.com/paipu1995/web-app-project-69.git
+
+Check Branch Stats:
+git checkout main
+git pull origin main
+
+Create Branch:
+git checkout -b "name branch"
+
+Add Branch:
+git add .
+git commit -m "comment"
+
+Push Branch:
+git push -u origin name-branch
