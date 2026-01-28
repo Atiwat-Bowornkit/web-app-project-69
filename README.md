@@ -63,10 +63,13 @@ git checkout main
 git pull origin main
 
 Create Branch:
+
 git checkout -b "name branch"
 
 Add Branch:
+
 git add .
+
 git commit -m "comment"
 
 Push Branch:
