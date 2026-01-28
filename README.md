@@ -53,6 +53,8 @@
 
 ไปป์: 1.1, 1.2, 6.1, 6.2
 
+https://milersoft.com/practice-teamwork-with-git/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExcW1MT0V0dElheE52UkF1ZXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR69QanztBCTWkAai-Z19yRw9ZjuSI9tx38AV5rAu_8uv6WugsdrMQAvsc8bOg_aem_K14jk44GFtnUoNmxIhky_Q
+
 Clone GitHub:
 git clone https://github.com/paipu1995/web-app-project-69.git
 
