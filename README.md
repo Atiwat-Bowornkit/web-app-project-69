@@ -59,17 +59,17 @@ https://milersoft.com/practice-teamwork-with-git/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZ
 
 Clone GitHub:
 
-git clone https://github.com/paipu1995/web-app-project-69.git #ดึงไฟล์จาก github
+git clone https://github.com/Atiwat-Bowornkit/web-app-project-69.git
 
 Check Branch Stats:
 
-git checkout main #เช็คตำแหน่งของ branch ตอนนี้
+git checkout main
 
 git pull origin main
 
 Create Branch:
 
-git checkout -b "name branch" #สร้าง branch ใหม่สำหรับ แก้ไขงาน
+git checkout -b "name branch"
 
 Add Branch:
 
@@ -79,4 +79,4 @@ git commit -m "comment"
 
 Push Branch:
 
-git push -u origin name-branch #Push Branch
+git push -u origin name-branch
