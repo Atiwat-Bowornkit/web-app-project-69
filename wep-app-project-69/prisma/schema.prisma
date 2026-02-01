@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  password  String?
+  image     String?
+  recipes   Recipe[]
+  inventory InventoryItem[]
+  favorites Favorite[]
+  createdAt DateTime @default(now())
+}
+
+model Recipe {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  category    String
+  imageUrl    String?
+  servings    Int      @default(1)
+  steps       String
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    Int
+  ingredients RecipeIngredient[]
+  favoritedBy Favorite[]
+  createdAt   DateTime @default(now())
+}
+
+model Ingredient {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  unit        String
+  inRecipes   RecipeIngredient[]
+  inInventory InventoryItem[]
+}
+
+model RecipeIngredient {
+  id           Int        @id @default(autoincrement())
+  recipe       Recipe     @relation(fields: [recipeId], references: [id])
+  recipeId     Int
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredientId Int
+  amount       Float
+}
+
+model InventoryItem {
+  id           Int        @id @default(autoincrement())
+  user         User       @relation(fields: [userId], references: [id])
+  userId       Int
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredientId Int
+  quantity     Float
+  expiryDate   DateTime?
+}
+
+model Favorite {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  recipe    Recipe   @relation(fields: [recipeId], references: [id])
+  recipeId  Int
+
+  @@unique([userId, recipeId])
+}
