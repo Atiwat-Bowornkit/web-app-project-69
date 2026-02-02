@@ -31,6 +31,20 @@ export default async function Home() {
         </div>
       </header>
 
+      <div className="search-container">
+        <h1>ค้นหาเมนูที่ต้องการ</h1>
+        <label htmlFor="searchBox">🔍</label>
+        <input type="text" id="searchBox" name="searchBox"></input>
+
+        <label htmlFor="tags"></label>
+        <select id="tags" name="tags" className="tagSearch mr-1  ml-1">
+          <option>เมนูทอด</option>
+        </select>
+
+        <button type="submit" id="searchButton">ค้นหา</button>
+
+      </div>
+
       {/* Recipe Showcase */}
       <main className="container mx-auto px-4 mt-12">
         <h2 className="text-3xl font-bold text-gray-800 mb-6 border-l-4 border-orange-500 pl-4">
