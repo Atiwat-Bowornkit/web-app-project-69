@@ -23,7 +23,7 @@ export default async function Home() {
         </p>
         <div className="flex justify-center gap-4">
           <Link 
-            href="/dashboard" 
+            href="/login" 
             className="bg-white text-orange-600 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition shadow-md"
           >
             เข้าสู่ระบบ
@@ -31,19 +31,7 @@ export default async function Home() {
         </div>
       </header>
 
-      <div className="search-container">
-        <h1>ค้นหาเมนูที่ต้องการ</h1>
-        <label htmlFor="searchBox">🔍</label>
-        <input type="text" id="searchBox" name="searchBox"></input>
-
-        <label htmlFor="tags"></label>
-        <select id="tags" name="tags" className="tagSearch mr-1  ml-1">
-          <option>เมนูทอด</option>
-        </select>
-
-        <button type="submit" id="searchButton">ค้นหา</button>
-
-      </div>
+      
 
       {/* Recipe Showcase */}
       <main className="container mx-auto px-4 mt-12">

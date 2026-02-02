@@ -21,19 +21,6 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      <div className="search-container mb-10">
-        <h1>ค้นหาเมนูที่ต้องการ</h1>
-
-        <label htmlFor="searchBox">🔍</label>
-        <input type="text" id="searchBox" name="searchBox"></input>
-
-        <label htmlFor="tags"></label>
-        <select id="tags" name="tags" className="tagSearch mr-1  ml-1">
-          <option>เมนูทอด</option>
-        </select>
-
-        <button type="submit" id="searchButton">ค้นหา</button>
-      </div>
 
       {/* Grid แสดงรายการอาหาร */}
       <div className="container mx-auto px-6">
