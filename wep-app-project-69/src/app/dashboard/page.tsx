@@ -1,6 +1,7 @@
 // src/app/dashboard/page.tsx
 import { db } from '@/lib/db'
 import Link from 'next/link'
+import "../globals.css"
 
 export default async function DashboardPage() {
   // ดึงสูตรอาหารทั้งหมดมาโชว์
@@ -18,6 +19,20 @@ export default async function DashboardPage() {
             <h1 className="text-4xl font-bold mb-2">Weekly Popular 🌟</h1>
             <p className="text-orange-100">เมนูยอดฮิตประจำสัปดาห์ที่คัดสรรมาเพื่อคุณ</p>
         </div>
+      </div>
+
+      <div className="search-container mb-10">
+        <h1>ค้นหาเมนูที่ต้องการ</h1>
+
+        <label htmlFor="searchBox">🔍</label>
+        <input type="text" id="searchBox" name="searchBox"></input>
+
+        <label htmlFor="tags"></label>
+        <select id="tags" name="tags" className="tagSearch mr-1  ml-1">
+          <option>เมนูทอด</option>
+        </select>
+
+        <button type="submit" id="searchButton">ค้นหา</button>
       </div>
 
       {/* Grid แสดงรายการอาหาร */}
