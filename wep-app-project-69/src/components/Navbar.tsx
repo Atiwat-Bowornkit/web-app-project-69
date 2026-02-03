@@ -24,7 +24,7 @@ export default async function Navbar() {
         <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
           <Link href="/dashboard" className="hover:text-orange-600 transition">หน้าหลัก</Link>
           <Link href="/search" className="hover:text-orange-600 transition">ค้นหา</Link>
-          <Link href="/inventory" className="hover:text-orange-600 transition">คลังวัตถุดิบ</Link>
+          <Link href="/planner" className="hover:text-orange-600 transition">ตารางสูตรอาหาร</Link>
         </div>
         
         {/* Right Side Actions - เมนูขวา (Login/Profile) */}
