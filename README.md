@@ -54,7 +54,7 @@ git clone https://github.com/Atiwat-Bowornkit/web-app-project-69.git
 
 Check Branch Stats:
 
-git checkout main           #เป็นการทำให้ branch ที่กำลังใช้อยู่ปัจจุบันเปลี่ยนเป็น bramch ที่ชื่อว่า main  
+git checkout main________________________________#เป็นการทำให้ branch ที่กำลังใช้อยู่ปัจจุบันเปลี่ยนเป็น bramch ที่ชื่อว่า main  
 
 git pull origin main
 
