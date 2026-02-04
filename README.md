@@ -47,6 +47,7 @@
 
 https://milersoft.com/practice-teamwork-with-git/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExcW1MT0V0dElheE52UkF1ZXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR69QanztBCTWkAai-Z19yRw9ZjuSI9tx38AV5rAu_8uv6WugsdrMQAvsc8bOg_aem_K14jk44GFtnUoNmxIhky_Q
 
+      
 
 Clone GitHub:
 
@@ -54,21 +55,21 @@ git clone https://github.com/Atiwat-Bowornkit/web-app-project-69.git
 
 Check Branch Stats:
 
-git checkout main
+git checkout main________________________________#เป็นการทำให้ branch ที่กำลังใช้อยู่ปัจจุบันเปลี่ยนเป็น bramch ที่ชื่อว่า main  
 
 git pull origin main
-
 
 Create Branch:
 
 git checkout -b "name branch"
+      
 
 Add Branch:
 
 git add . #Add Branch
 
 git commit -m "comment"
-
+  
 Push Branch:
 
 git push -u origin name-branch

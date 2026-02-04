@@ -46,9 +46,6 @@ model Ingredient {
 
 model RecipeIngredient {
   id           Int        @id @default(autoincrement())
-  
-  // 👇 จุดที่ 1: ต้องแก้ตรงนี้ครับ (เพิ่ม onDelete: Cascade)
-  // เพื่อให้เวลาลบสูตร ข้อมูลปริมาณวัตถุดิบของสูตรนั้นหายไปด้วย
   recipe       Recipe     @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   recipeId     Int
   
@@ -73,7 +70,6 @@ model Favorite {
   recipeId  Int
   createdAt DateTime @default(now())
 
-  // อันนี้ของคุณถูกแล้วครับ ✅
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade) 
   
@@ -88,10 +84,6 @@ model Todo {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   recipeId  Int?
-  
-  
-  // เผื่อ User เคยสร้าง Todo ว่า "ซื้อของทำกะเพรา" แล้วผูกกับสูตรกะเพรา 
-  // พอลบสูตรกะเพรา Todo นี้จะได้หายไปด้วย (หรือไม่ Error)
   recipe    Recipe?  @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   
   createdAt DateTime @default(now())
