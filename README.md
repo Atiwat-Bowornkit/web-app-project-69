@@ -47,6 +47,7 @@
 
 https://milersoft.com/practice-teamwork-with-git/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExcW1MT0V0dElheE52UkF1ZXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR69QanztBCTWkAai-Z19yRw9ZjuSI9tx38AV5rAu_8uv6WugsdrMQAvsc8bOg_aem_K14jk44GFtnUoNmxIhky_Q
 
+      
 
 Clone GitHub:
 
@@ -58,16 +59,26 @@ git checkout main________________________________#เป็นการทำใ
 
 git pull origin main
 
-
+      |
+      |
+      |
+      
 Create Branch:
 
 git checkout -b "name branch"
+      |
+      |
+      |
+   
 
 Add Branch:
 
 git add . #Add Branch
 
 git commit -m "comment"
+      |
+      |
+      |
 
 Push Branch:
 
