@@ -1,3 +1,4 @@
+// src/app/profile/page.tsx
 import { db } from '@/lib/db'
 import { cookies } from 'next/headers'
 import { decrypt } from '@/lib/session'
@@ -5,6 +6,7 @@ import { redirect } from 'next/navigation'
 import { logout } from '@/app/actions'
 import Link from 'next/link'
 import TodoItem from '@/components/TodoItem'
+
 export default async function ProfilePage() {
   const cookieStore = await cookies()
   const sessionToken = cookieStore.get('session')?.value
@@ -14,7 +16,7 @@ export default async function ProfilePage() {
     redirect('/login')
   }
 
-  // 1. Fetch User Data including Favorites AND Todos
+  // 1. ดึงข้อมูล User รวมถึง Favorites, Todos และ **Recipes (สูตรของฉัน)**
   const user = await db.user.findUnique({
     where: { id: Number(session.userId) },
     include: {
@@ -26,10 +28,10 @@ export default async function ProfilePage() {
         },
         orderBy: { createdAt: 'desc' }
       },
-      // ✅ Added: Fetch Todos
       todos: {
         orderBy: { createdAt: 'desc' }
-      }
+      },
+      recipes: true // <--- เพิ่มตรงนี้! เพื่อดึงสูตรที่ User เป็นคนสร้าง
     }
   })
 
@@ -58,15 +60,20 @@ export default async function ProfilePage() {
       
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        {/* Card 1: Favorites */}
+        
+        {/* Card 1: My Recipes (สูตรของฉัน) */}
         <div className="bg-blue-50 p-6 rounded-xl border border-blue-100 shadow-sm">
-          <h3 className="font-bold text-blue-800 text-lg mb-2">📚 สูตรที่บันทึกไว้</h3>
+          <h3 className="font-bold text-blue-800 text-lg mb-2">📚 สูตรของฉัน (My Record)</h3>
           <p className="text-4xl font-bold text-blue-600">
-            {user.favorites.length} <span className="text-base font-normal text-gray-500">สูตร</span>
+            {/* แก้ตรงนี้: เปลี่ยนจาก user.favorites.length เป็น user.recipes.length */}
+            {user.recipes.length} <span className="text-base font-normal text-gray-500">สูตร 
+            <Link href="/myrecord" className="ml-2 text-sm text-orange-500 font-bold hover:underline seeRecord">
+              ดูทั้งหมด →
+            </Link></span>
           </p>
         </div>
 
-        {/* Card 2: To-Dos (Real Data) */}
+        {/* Card 2: To-Dos */}
         <div className="bg-purple-50 p-6 rounded-xl border border-purple-100 shadow-sm">
           <h3 className="font-bold text-purple-800 text-lg mb-2">📝 รายการที่ต้องทำ</h3>
           <p className="text-4xl font-bold text-purple-600">
@@ -75,10 +82,10 @@ export default async function ProfilePage() {
         </div>
       </div>
 
-      {/* Section 1: Favorites */}
+      {/* Section 1: Favorites (ยังคงแสดงรายการที่กดหัวใจไว้ด้านล่างเหมือนเดิม) */}
       <section className="mb-10">
         <h2 className="text-xl font-bold mb-6 text-gray-800 flex items-center gap-2">
-            ❤️ รายการที่ถูกใจ
+            ❤️ รายการที่ถูกใจ (Favorites)
         </h2>
         
         {user.favorites.length === 0 ? (
@@ -131,7 +138,6 @@ export default async function ProfilePage() {
           </div>
         ) : (
           <div className="bg-white rounded-xl border shadow-sm overflow-hidden">
-            {/* วนลูปแสดง TodoItem */}
             {user.todos.map((todo) => (
               <TodoItem key={todo.id} todo={todo} />
             ))}
