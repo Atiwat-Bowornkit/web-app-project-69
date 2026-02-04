@@ -59,27 +59,17 @@ git checkout main________________________________#เป็นการทำใ
 
 git pull origin main
 
-      |
-      |
-      |
-      
 Create Branch:
 
 git checkout -b "name branch"
-      |
-      |
-      |
-   
+      
 
 Add Branch:
 
 git add . #Add Branch
 
 git commit -m "comment"
-      |
-      |
-      |
-
+  
 Push Branch:
 
 git push -u origin name-branch
