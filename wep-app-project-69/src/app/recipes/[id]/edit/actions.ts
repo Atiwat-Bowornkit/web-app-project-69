@@ -5,12 +5,27 @@ import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { decrypt } from '@/lib/session'
 
-export async function updateRecipe(id: number, prevState: any, formData: FormData) {
-  // 1. ตรวจสอบสิทธิ์ (ต้องเป็นคนแต่งเท่านั้นถึงแก้ได้)
+// 1. เพิ่ม Type State เพื่อให้ TypeScript ไม่ฟ้อง Error
+export type State = {
+  message?: string | null
+}
+
+// 2. ฟังก์ชัน updateRecipe ต้องรับ 3 ค่า เรียงตามนี้เป๊ะๆ
+export async function updateRecipe(
+  id: number,             // มาจาก .bind (ตัวที่ 1)
+  prevState: State,       // มาจาก useActionState (ตัวที่ 2)
+  formData: FormData      // ข้อมูลจากฟอร์ม (ตัวที่ 3)
+): Promise<State> {
+  
+  // ตรวจสอบสิทธิ์
   const cookieStore = await cookies()
   const sessionToken = cookieStore.get('session')?.value
   const session = await decrypt(sessionToken)
   const userId = Number(session?.userId)
+
+  if (!userId) {
+    return { message: 'กรุณาเข้าสู่ระบบ' }
+  }
 
   const existingRecipe = await db.recipe.findUnique({ where: { id } })
   
@@ -18,7 +33,7 @@ export async function updateRecipe(id: number, prevState: any, formData: FormDat
     return { message: 'คุณไม่มีสิทธิ์แก้ไขสูตรนี้' }
   }
 
-  // 2. รับข้อมูลจากฟอร์ม
+  // รับข้อมูลจากฟอร์ม (ตอนนี้ formData จะไม่ undefined แล้ว)
   const title = formData.get('title') as string
   const description = formData.get('description') as string
   const category = formData.get('category') as string
@@ -30,7 +45,7 @@ export async function updateRecipe(id: number, prevState: any, formData: FormDat
     return { message: 'กรุณากรอกข้อมูลสำคัญให้ครบ' }
   }
 
-  // 3. อัปเดตข้อมูลสูตร (Recipe)
+  // อัปเดตข้อมูลสูตร
   await db.recipe.update({
     where: { id },
     data: {
@@ -42,9 +57,8 @@ export async function updateRecipe(id: number, prevState: any, formData: FormDat
     }
   })
 
-  // 4. จัดการวัตถุดิบ (วิธีง่ายสุด: ลบของเก่าทิ้ง แล้วสร้างใหม่ตามที่พิมพ์มา)
+  // จัดการวัตถุดิบ
   if (ingredientsRaw) {
-    // ลบความสัมพันธ์วัตถุดิบเก่าออกก่อน
     await db.recipeIngredient.deleteMany({
       where: { recipeId: id }
     })
@@ -59,13 +73,11 @@ export async function updateRecipe(id: number, prevState: any, formData: FormDat
         const amount = parts[1] ? parseFloat(parts[1].trim()) : 1
         const unit = parts[2]?.trim() || 'หน่วย'
 
-        // หาหรือสร้าง Ingredient Master
         let ingredient = await db.ingredient.findUnique({ where: { name } })
         if (!ingredient) {
             ingredient = await db.ingredient.create({ data: { name, unit } })
         }
         
-        // สร้างความสัมพันธ์ใหม่
         await db.recipeIngredient.create({
             data: {
                 recipeId: id,
@@ -77,5 +89,6 @@ export async function updateRecipe(id: number, prevState: any, formData: FormDat
     }
   }
 
-  redirect(`/myrecord`) // แก้เสร็จกลับไปหน้า My Record
+  // redirect ควรเป็นคำสั่งสุดท้าย
+  redirect('/dashboard') 
 }
