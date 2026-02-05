@@ -18,6 +18,7 @@ model User {
   favorites Favorite[]
   createdAt DateTime        @default(now())
   todos     Todo[]
+  mealPlans MealPlan[]
 }
 
 model Recipe {
@@ -33,6 +34,7 @@ model Recipe {
   ingredients RecipeIngredient[]
   favorites   Favorite[]
   todos       Todo[]
+  mealPlans   MealPlan[]
   createdAt   DateTime           @default(now())
 }
 
@@ -87,4 +89,20 @@ model Todo {
   recipe    Recipe?  @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   
   createdAt DateTime @default(now())
+}
+
+model MealPlan {
+  id        Int      @id @default(autoincrement())
+  date      DateTime 
+  slot      String  
+  
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  recipeId  Int
+  recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  
+  @@unique([userId, date, slot])
 }
