@@ -1,13 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  reactCompiler: true,
+  // Move it here (Root Level)
+  allowedDevOrigins: ["my-app.gitpod.io", "localhost:3000"],
+  
+  experimental: {
+    // Keep other experimental options here if you have them
+  },
 };
 
-module.exports = {
-  experimental: {
-    allowedDevOrigins: ["localhost:3000", "192.168.36.1:3000"],
-  },
-}
 export default nextConfig;
