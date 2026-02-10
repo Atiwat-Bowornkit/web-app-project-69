@@ -66,7 +66,7 @@ export default function CreateRecipePage() {
           <textarea 
             name="ingredients" 
             rows={5} 
-            placeholder="เนื้อไก่, 200, กรัม&#10;ไข่ไก่, 2, ฟอง&#10;ใบกะเพรา, 1, กำ" 
+            placeholder={`เนื้อไก่, 200, กรัม\nไข่ไก่, 2, ฟอง\nใบกะเพรา, 1, ใบ`}
             className="w-full border p-2 rounded font-mono text-sm text-gray-900 placeholder-gray-400"
           ></textarea>
         </div>
@@ -74,7 +74,7 @@ export default function CreateRecipePage() {
         {/* วิธีทำ */}
         <div>
           <label className="block font-medium mb-1 text-gray-700">ขั้นตอนการทำ <span className="text-red-500">*</span></label>
-          <textarea name="steps" rows={5} required placeholder="ตั้งกระทะ...\nasdas" 
+          <textarea name="steps" rows={5} required placeholder={`ทั้งกระทะ\nใส่ไข่\nกิน`}
             className="w-full border p-2 rounded text-gray-900 placeholder-gray-400"
           ></textarea>
         </div>
