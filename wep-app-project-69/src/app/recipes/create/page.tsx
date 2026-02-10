@@ -74,7 +74,7 @@ export default function CreateRecipePage() {
         {/* วิธีทำ */}
         <div>
           <label className="block font-medium mb-1 text-gray-700">ขั้นตอนการทำ <span className="text-red-500">*</span></label>
-          <textarea name="steps" rows={5} required placeholder="1. ตั้งกระทะ..." 
+          <textarea name="steps" rows={5} required placeholder="ตั้งกระทะ...\nasdas" 
             className="w-full border p-2 rounded text-gray-900 placeholder-gray-400"
           ></textarea>
         </div>
