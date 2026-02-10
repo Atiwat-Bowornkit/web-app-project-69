@@ -37,5 +37,4 @@ export const config = {
   matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
 }
 
-const protectedRoutes = ['/dashboard', '/recipes', '/inventory', '/planner', '/profile']
-
+ 
