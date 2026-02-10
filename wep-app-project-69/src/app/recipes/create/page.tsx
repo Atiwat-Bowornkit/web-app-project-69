@@ -37,9 +37,9 @@ export default function CreateRecipePage() {
                 <label className="block font-medium mb-1 text-gray-700">หมวดหมู่</label>
                 <select name="category" className="w-full border p-2 rounded text-gray-900 bg-white">
                     <option value="ผัด">ผัด</option>
-                    <option value="ต้ม">ต้ม / แกง</option>
+                    <option value="ต้ม">ต้ม</option>
                     <option value="ทอด">ทอด</option>
-                    <option value="ย่าง">ย่าง / อบ</option>
+                    <option value="ย่าง">ย่าง</option>
                     <option value="อื่นๆ">อื่นๆ</option>
                 </select>
             </div>

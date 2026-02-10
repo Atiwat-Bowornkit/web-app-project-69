@@ -42,8 +42,8 @@ export default async function DashboardPage() {
       {/* --- Hero Section: Weekly Popular (Dynamic) --- */}
       <div className="bg-gradient-to-r from-orange-600 to-orange-500 text-white py-12 px-6 shadow-md mb-10">
         <div className="container mx-auto">
-            <h1 className="text-4xl font-bold mb-2">Weekly Popular 🌟</h1>
-            <p className="text-orange-100 mb-8">เมนูยอดฮิตที่เพื่อนๆ ชาวครัวถูกใจมากที่สุด</p>
+            <h1 className="text-4xl font-bold mb-2">เมนูยอดนิยม</h1>
+             
 
             {/* Grid แสดง 2 เมนูยอดฮิต */}
             {popularRecipes.length > 0 ? (
@@ -87,7 +87,7 @@ export default async function DashboardPage() {
       {/* --- Grid แสดงรายการอาหารทั้งหมด --- */}
       <div className="container mx-auto px-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-6 border-l-4 border-orange-500 pl-4 flex items-center justify-between">
-            <span>All Recipes (สูตรทั้งหมด)</span>
+            <span>สูตรอาหารทั้งหมด</span>
             <span className="text-sm font-normal text-gray-500">ทั้งหมด {recentRecipes.length} สูตร</span>
         </h2>
 

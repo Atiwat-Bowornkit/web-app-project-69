@@ -1,4 +1,3 @@
-// src/app/profile/page.tsx
 import { db } from '@/lib/db'
 import { cookies } from 'next/headers'
 import { decrypt } from '@/lib/session'
@@ -6,6 +5,8 @@ import { redirect } from 'next/navigation'
 import { logout } from '@/app/actions'
 import Link from 'next/link'
 import TodoItem from '@/components/TodoItem'
+ 
+import EditProfileModal from '@/components/EditProfileModal'
 
 export default async function ProfilePage() {
   const cookieStore = await cookies()
@@ -16,7 +17,7 @@ export default async function ProfilePage() {
     redirect('/login')
   }
 
-  // 1. ดึงข้อมูล User รวมถึง Favorites, Todos และ **Recipes (สูตรของฉัน)**
+  // 1. ดึงข้อมูล User
   const user = await db.user.findUnique({
     where: { id: Number(session.userId) },
     include: {
@@ -31,7 +32,7 @@ export default async function ProfilePage() {
       todos: {
         orderBy: { createdAt: 'desc' }
       },
-      recipes: true // <--- เพิ่มตรงนี้! เพื่อดึงสูตรที่ User เป็นคนสร้าง
+      recipes: true
     }
   })
 
@@ -42,30 +43,39 @@ export default async function ProfilePage() {
       {/* Header Profile */}
       <div className="flex flex-col md:flex-row justify-between items-center mb-10 bg-white p-6 rounded-xl shadow-sm border">
         <div className="flex items-center gap-4">
-            <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center text-3xl">
-                👤
+            <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center text-3xl overflow-hidden border-2 border-orange-200">
+                {/* ถ้ามีรูปภาพให้แสดงรูป ถ้าไม่มีแสดง icon */}
+                {user.image ? (
+                  <img src={user.image} alt={user.name || "User"} className="w-full h-full object-cover" />
+                ) : (
+                  <span>👤</span>
+                )}
             </div>
             <div>
-                <h1 className="text-2xl font-bold text-gray-800">สวัสดี, {user.name}! 👋</h1>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-2xl font-bold text-gray-800">{user.name}</h1>
+                  
+                 
+                  <EditProfileModal user={user} />
+                </div>
                 <p className="text-gray-500 text-sm">{user.email}</p>
             </div>
         </div>
         
         <form action={logout}>
           <button className="bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 px-6 py-2 rounded-full text-sm font-bold transition flex items-center gap-2">
-            <span>🚪</span> ออกจากระบบ
+            ออกจากระบบ
           </button>
         </form>
       </div>
       
-      {/* Stats Cards */}
+      {/* ... ส่วน Stats Cards และ Sections อื่นๆ เหมือนเดิม ... */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        
-        {/* Card 1: My Recipes (สูตรของฉัน) */}
-        <div className="bg-blue-50 p-6 rounded-xl border border-blue-100 shadow-sm">
-          <h3 className="font-bold text-blue-800 text-lg mb-2">📚 สูตรของฉัน (My Record)</h3>
+         {/* ... */}
+         {/* (คัดลอกส่วนที่เหลือของคุณมาวางต่อได้เลยครับ ไม่มีการเปลี่ยนแปลง) */}
+         <div className="bg-blue-50 p-6 rounded-xl border border-blue-100 shadow-sm">
+          <h3 className="font-bold text-blue-800 text-lg mb-2">สูตรของฉัน</h3>
           <p className="text-4xl font-bold text-blue-600">
-            {/* แก้ตรงนี้: เปลี่ยนจาก user.favorites.length เป็น user.recipes.length */}
             {user.recipes.length} <span className="text-base font-normal text-gray-500">สูตร 
             <Link href="/myrecord" className="ml-2 text-sm text-orange-500 font-bold hover:underline seeRecord">
               ดูทั้งหมด →
@@ -73,21 +83,19 @@ export default async function ProfilePage() {
           </p>
         </div>
 
-        {/* Card 2: To-Dos */}
         <div className="bg-purple-50 p-6 rounded-xl border border-purple-100 shadow-sm">
-          <h3 className="font-bold text-purple-800 text-lg mb-2">📝 รายการที่ต้องทำ</h3>
+          <h3 className="font-bold text-purple-800 text-lg mb-2">รายการที่ต้องทำ</h3>
           <p className="text-4xl font-bold text-purple-600">
             {user.todos.length} <span className="text-base font-normal text-gray-500">รายการ</span>
           </p>
         </div>
       </div>
 
-      {/* Section 1: Favorites (ยังคงแสดงรายการที่กดหัวใจไว้ด้านล่างเหมือนเดิม) */}
       <section className="mb-10">
         <h2 className="text-xl font-bold mb-6 text-gray-800 flex items-center gap-2">
-            ❤️ รายการที่ถูกใจ (Favorites)
+          รายการที่ถูกใจ
         </h2>
-        
+        {/* ... favorites mapping code ... */}
         {user.favorites.length === 0 ? (
           <div className="p-12 bg-gray-50 text-center rounded-xl border-2 border-dashed border-gray-300">
               <p className="text-gray-500 mb-2">คุณยังไม่มีสูตรอาหารที่ถูกใจ</p>
@@ -125,15 +133,13 @@ export default async function ProfilePage() {
         )}
       </section>
 
-      {/* Section 2: To-Do List */}
       <section>
         <h2 className="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
-            ✅ รายการที่ต้องทำของคุณ ({user.todos.length})
+            รายการที่ต้องทำของคุณ 
         </h2>
-        
         {user.todos.length === 0 ? (
           <div className="p-12 bg-white text-center rounded-xl border border-gray-200 shadow-sm">
-              <div className="text-4xl mb-3">📝</div>
+              <div className="text-4xl mb-3"></div>
               <p className="text-gray-500">คุณยังไม่มีรายการที่ต้องทำในขณะนี้</p>
           </div>
         ) : (

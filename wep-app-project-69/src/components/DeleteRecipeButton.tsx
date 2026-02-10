@@ -29,7 +29,7 @@ export default function DeleteRecipeButton({ recipeId }: { recipeId: number }) {
       className="bg-red-50 text-red-600 font-bold py-2 px-3 rounded border border-red-200 hover:bg-red-100 transition text-sm flex items-center justify-center gap-1"
       title="ลบสูตรอาหาร"
     >
-      {isDeleting ? '...' : '🗑️'}
+      {isDeleting ? '...' : 'ลบ'}
     </button>
   )
 }

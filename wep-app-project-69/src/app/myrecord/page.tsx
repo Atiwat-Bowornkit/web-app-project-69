@@ -38,7 +38,7 @@ export default async function MyRecordPage() {
                 ←
             </Link>
             <div>
-                <h1 className="text-3xl font-bold text-gray-800">👨‍🍳 สูตรอาหารของฉัน</h1>
+                <h1 className="text-3xl font-bold text-gray-800">สูตรอาหารของฉัน</h1>
                 <p className="text-gray-500">คุณได้แบ่งปันสูตรไปแล้ว {myRecipes.length} รายการ</p>
             </div>
         </div>
@@ -51,9 +51,9 @@ export default async function MyRecordPage() {
       {/* Grid แสดงรายการ */}
       {myRecipes.length === 0 ? (
         <div className="text-center py-20 bg-white rounded-xl border border-dashed border-gray-300">
-            <div className="text-6xl mb-4">🍳</div>
+            
             <h3 className="text-xl font-bold text-gray-700">คุณยังไม่ได้เพิ่มสูตรอาหาร</h3>
-            <p className="text-gray-500 mb-6">มาเริ่มแบ่งปันความอร่อยสูตรเด็ดของคุณกันเถอะ!</p>
+            <p className="text-gray-500 mb-6"> </p>
             <Link href="/recipes/create" className="bg-orange-500 text-white px-6 py-2 rounded-full font-bold hover:bg-orange-600 transition">
                 เริ่มเขียนสูตรแรก
             </Link>
@@ -72,7 +72,7 @@ export default async function MyRecordPage() {
                         />
                     ) : (
                         <div className="w-full h-full flex items-center justify-center text-gray-400 text-4xl bg-gray-100">
-                            👨‍🍳
+                            
                         </div>
                     )}
                     <span className="absolute top-2 right-2 bg-orange-500 text-white text-xs px-2 py-1 rounded-full shadow font-bold">
@@ -101,11 +101,11 @@ export default async function MyRecordPage() {
                             href={`/recipes/${recipe.id}/edit`} 
                             className="flex-1 text-center bg-blue-50 text-blue-600 font-bold py-2 rounded border border-blue-200 hover:bg-blue-100 transition text-sm"
                         >
-                            ✏️ แก้ไข
+                            แก้ไข
                         </Link>
 
                         {/* ✅ เพิ่มปุ่มลบตรงนี้ (เป็นปุ่มเล็กๆ ข้างขวาสุด) */}
-                        <DeleteRecipeButton recipeId={recipe.id} />
+                        <DeleteRecipeButton  recipeId={recipe.id} />
 
                     </div>
                 </div>

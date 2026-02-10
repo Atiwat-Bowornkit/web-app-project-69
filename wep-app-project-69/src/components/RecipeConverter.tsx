@@ -40,7 +40,7 @@ export default function RecipeConverter({ recipe, userId }: { recipe: RecipeData
     await addToTodo(userId, todoText, recipe.id) 
     
     setIsAdding(false)
-    alert("✅ เพิ่มลงรายการที่ต้องทำเรียบร้อย!")
+    alert("เพิ่มลงรายการที่ต้องทำเรียบร้อย")
   } // ✅ 3. ปิดวงเล็บฟังก์ชันตรงนี้
 
   return (
@@ -50,7 +50,7 @@ export default function RecipeConverter({ recipe, userId }: { recipe: RecipeData
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-1">{recipe.title}</h1>
-            <p className="text-gray-500 text-sm">โดย เชฟ{recipe.author.name || 'นิรนาม'}</p>
+            <p className="text-gray-500 text-sm">โดย{recipe.author.name || 'นิรนาม'}</p>
           </div>
 
           {/* ปุ่มปรับจำนวนเสิร์ฟ */}
@@ -62,7 +62,7 @@ export default function RecipeConverter({ recipe, userId }: { recipe: RecipeData
               -
             </button>
             <div className="text-center px-2">
-              <span className="block text-[10px] text-gray-500 uppercase tracking-wide">สำหรับ</span>
+               
               <span className="text-xl font-bold text-gray-800 leading-none">{servings}</span>
             </div>
             <button 
@@ -78,10 +78,7 @@ export default function RecipeConverter({ recipe, userId }: { recipe: RecipeData
           {/* ส่วนวัตถุดิบ */}
           <div>
             <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2 pb-2 border-b">
-              🛒 วัตถุดิบ 
-              <span className="text-xs font-normal text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
-                คำนวณอัตโนมัติ
-              </span>
+            วัตถุดิบ   
             </h2>
             <ul className="space-y-3">
               {recipe.ingredients.map((item, index) => {
@@ -111,13 +108,13 @@ export default function RecipeConverter({ recipe, userId }: { recipe: RecipeData
                 isAdding ? "bg-gray-400 cursor-not-allowed" : "bg-purple-600 hover:bg-purple-700 text-white"
               }`}
             >
-              <span>{isAdding ? "กำลังบันทึก..." : "📝 เพิ่มลงรายการที่ต้องทำ"}</span>
+              <span>{isAdding ? "กำลังบันทึก..." : "เพิ่มลงรายการที่ต้องทำ"}</span>
             </button>
           </div>
 
           {/* ส่วนวิธีทำ */}
           <div>
-            <h2 className="text-xl font-bold text-gray-800 mb-4 pb-2 border-b">👨‍🍳 วิธีทำ</h2>
+            <h2 className="text-xl font-bold text-gray-800 mb-4 pb-2 border-b">วิธีทำ</h2>
             <div className="space-y-6">
               {/* แยกข้อความด้วยการขึ้นบรรทัดใหม่ (\n) */}
               {recipe.steps.split('\n').map((step, index) => (

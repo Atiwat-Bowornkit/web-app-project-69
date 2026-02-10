@@ -4,8 +4,8 @@ import { addMealToPlan } from '@/app/actions/planner' // 1. เรียกใ�
 import { PlusCircle } from 'lucide-react'
 
 const CATEGORIES = [
-  "อาหารเช้า", "อาหารจานเดียว", "ต้ม/แกง", "ผัด", 
-  "ทอด", "ของหวาน", "เครื่องดื่ม", "คลีน/สุขภาพ"
+  "ผัด", "อาหารจานเดียว", "ต้ม", "ทอด", 
+  "ย่าง", "อื่นๆ"
 ]
 
 export default async function SearchPage({
@@ -38,7 +38,7 @@ export default async function SearchPage({
   return (
     <div className="container mx-auto px-6 py-10 min-h-screen">
       <h1 className="text-3xl font-bold text-gray-800 mb-8 flex items-center gap-2">
-        {isSelectionMode ? '📅 เลือกเมนูลงตาราง' : '🔍 ค้นหาสูตรอาหาร'}
+        {isSelectionMode ? 'เลือกเมนูลงตาราง' : 'ค้นหาสูตรอาหาร'}
       </h1>
 
       {/* ถ้าอยู่ในโหมดเลือกอาหาร แสดงแถบแจ้งเตือน */}
@@ -78,7 +78,7 @@ export default async function SearchPage({
             type="text"
             name="q"
             defaultValue={query}
-            placeholder="ชื่อเมนู เช่น กะเพรา..."
+            placeholder="ชื่อเมนู เช่น กะเพราหมา"
             className="flex-1 border-2 border-orange-200 rounded-full px-6 py-3 text-lg outline-none focus:border-orange-500 transition shadow-sm text-gray-700"
           />
 

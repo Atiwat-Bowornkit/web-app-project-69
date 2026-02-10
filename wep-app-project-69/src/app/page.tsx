@@ -17,9 +17,9 @@ export default async function Home() {
     <div className="min-h-screen bg-gray-50 pb-10">
       {/* Hero Section */}
       <header className="bg-orange-500 text-white py-20 text-center shadow-lg">
-        <h1 className="text-5xl font-bold mb-4">Food Recipe Inventory 🍳</h1>
+        <h1 className="text-5xl font-bold mb-4">คลังสูตรอาหาร</h1>
         <p className="text-xl opacity-90 mb-8">
-          จัดการสูตรอาหารและวัตถุดิบในตู้เย็น แบบอัจฉริยะ
+          รวบรวมและจัดการสูตรอาหาร
         </p>
         <div className="flex justify-center gap-4">
           <Link 
@@ -36,11 +36,11 @@ export default async function Home() {
       {/* Recipe Showcase */}
       <main className="container mx-auto px-4 mt-12">
         <h2 className="text-3xl font-bold text-gray-800 mb-6 border-l-4 border-orange-500 pl-4">
-          สูตรอาหารล่าสุดจาก Database
+          สูตรอาหาร
         </h2>
 
         {recipes.length === 0 ? (
-          <p className="text-gray-500 text-center py-10">ยังไม่มีสูตรอาหารในระบบ (ลองรัน Seed หรือยัง?)</p>
+          <p className="text-gray-500 text-center py-10">ยังไม่มีสูตรอาหารในระบบ</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {recipes.map((recipe) => (
@@ -50,7 +50,7 @@ export default async function Home() {
                   {recipe.imageUrl ? (
                     <img src={recipe.imageUrl} alt={recipe.title} className="w-full h-full object-cover"/>
                   ) : (
-                    <span className="text-4xl">🥘</span>
+                    <span className="text-4xl"></span>
                   )}
                 </div>
                 

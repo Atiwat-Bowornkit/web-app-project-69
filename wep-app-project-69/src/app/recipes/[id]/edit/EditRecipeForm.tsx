@@ -25,7 +25,7 @@ export default function EditRecipeForm({ recipe }: { recipe: any }) {
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">✏️ แก้ไขสูตร: {recipe.title}</h1>
+        <h1 className="text-2xl font-bold text-gray-800">แก้ไขสูตร: {recipe.title}</h1>
         <Link href="/dashboard" className="text-gray-500 hover:text-gray-700">ยกเลิก</Link>
       </div>
 
@@ -49,9 +49,9 @@ export default function EditRecipeForm({ recipe }: { recipe: any }) {
                 <label className="block font-medium mb-1 text-gray-700">หมวดหมู่</label>
                 <select name="category" defaultValue={recipe.category} className="w-full border p-2 rounded text-gray-900 bg-white">
                     <option value="ผัด">ผัด</option>
-                    <option value="ต้ม">ต้ม / แกง</option>
+                    <option value="ต้ม">ต้ม</option>
                     <option value="ทอด">ทอด</option>
-                    <option value="ย่าง">ย่าง / อบ</option>
+                    <option value="ย่าง">ย่าง</option>
                     <option value="อื่นๆ">อื่นๆ</option>
                 </select>
             </div>
