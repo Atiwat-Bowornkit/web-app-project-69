@@ -39,11 +39,6 @@
    
     6.2 Nutrition Info (ข้อมูลโภชนาการ): คำนวณแคลอรี่รวมของแต่ละสูตรอาหาร
 
-ต้า:  2 
-
-แต้ม: 3, 4
-
-ไปป์: 1, 5
 
 https://milersoft.com/practice-teamwork-with-git/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExcW1MT0V0dElheE52UkF1ZXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR69QanztBCTWkAai-Z19yRw9ZjuSI9tx38AV5rAu_8uv6WugsdrMQAvsc8bOg_aem_K14jk44GFtnUoNmxIhky_Q
 
