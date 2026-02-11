@@ -53,7 +53,7 @@ model RecipeIngredient {
   
   ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
   ingredientId Int
-  amount       Float
+  amount       String
 }
 
 model InventoryItem {

@@ -4,20 +4,21 @@ import { db } from '@/lib/db'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { decrypt } from '@/lib/session'
+import { revalidatePath } from 'next/cache'
 
-// 1. เพิ่ม Type State เพื่อให้ TypeScript ไม่ฟ้อง Error
+// ❌ ลบ function parseFraction ออก ไม่ต้องใช้แล้วครับ
+
 export type State = {
   message?: string | null
 }
 
-// 2. ฟังก์ชัน updateRecipe ต้องรับ 3 ค่า เรียงตามนี้เป๊ะๆ
 export async function updateRecipe(
-  id: number,             // มาจาก .bind (ตัวที่ 1)
-  prevState: State,       // มาจาก useActionState (ตัวที่ 2)
-  formData: FormData      // ข้อมูลจากฟอร์ม (ตัวที่ 3)
+  id: number,
+  prevState: State,
+  formData: FormData
 ): Promise<State> {
   
-  // ตรวจสอบสิทธิ์
+  // 1. ตรวจสอบสิทธิ์
   const cookieStore = await cookies()
   const sessionToken = cookieStore.get('session')?.value
   const session = await decrypt(sessionToken)
@@ -33,7 +34,7 @@ export async function updateRecipe(
     return { message: 'คุณไม่มีสิทธิ์แก้ไขสูตรนี้' }
   }
 
-  // รับข้อมูลจากฟอร์ม (ตอนนี้ formData จะไม่ undefined แล้ว)
+  // 2. รับข้อมูลจากฟอร์ม
   const title = formData.get('title') as string
   const description = formData.get('description') as string
   const category = formData.get('category') as string
@@ -45,20 +46,21 @@ export async function updateRecipe(
     return { message: 'กรุณากรอกข้อมูลสำคัญให้ครบ' }
   }
 
-  // อัปเดตข้อมูลสูตร
+  // 3. อัปเดตข้อมูลสูตร
   await db.recipe.update({
     where: { id },
     data: {
       title,
       description,
       category,
-      steps,
+      steps, // เช็คชื่อ field ใน DB ให้ตรง (steps หรือ instructions)
       imageUrl,
     }
   })
 
-  // จัดการวัตถุดิบ
+  // 4. จัดการวัตถุดิบ (ลบเก่า -> สร้างใหม่)
   if (ingredientsRaw) {
+    // ลบของเก่าทิ้งทั้งหมด
     await db.recipeIngredient.deleteMany({
       where: { recipeId: id }
     })
@@ -70,25 +72,32 @@ export async function updateRecipe(
         const name = parts[0].trim()
         if (!name) continue
         
-        const amount = parts[1] ? parseFloat(parts[1].trim()) : 1
+        // ✅ แก้ไขตรงนี้: รับค่าเป็น String ตรงๆ ไม่ต้องแปลง
+        // User พิมพ์ "1/2" ก็เก็บ "1/2" เลย
+        const amount = parts[1] ? parts[1].trim() : ""
+        
         const unit = parts[2]?.trim() || 'หน่วย'
 
+        // หา/สร้าง Ingredient Master
         let ingredient = await db.ingredient.findUnique({ where: { name } })
         if (!ingredient) {
             ingredient = await db.ingredient.create({ data: { name, unit } })
         }
         
+        // บันทึกความสัมพันธ์
         await db.recipeIngredient.create({
             data: {
                 recipeId: id,
                 ingredientId: ingredient.id,
-                amount: amount
+                amount: amount // ส่งค่า String เข้า Database
             }
         })
       }
     }
   }
 
-  // redirect ควรเป็นคำสั่งสุดท้าย
+  revalidatePath(`/recipes/${id}`)
+  revalidatePath('/dashboard')
+
   redirect('/dashboard') 
 }

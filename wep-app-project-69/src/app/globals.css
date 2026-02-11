@@ -12,3 +12,17 @@
     color:black;
     
 }
+
+.dashMain{
+    margin-left: 300px;
+    margin-right: 300px;
+    
+}
+
+.test{
+    border: 5px solid red;
+}
+
+body{
+    background-image: url('/src/app/images/BG.jpg');
+}
