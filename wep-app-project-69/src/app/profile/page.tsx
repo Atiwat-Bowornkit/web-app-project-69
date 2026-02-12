@@ -1,3 +1,4 @@
+// src/app/profile/page.tsx
 import { db } from '@/lib/db'
 import { cookies } from 'next/headers'
 import { decrypt } from '@/lib/session'
@@ -5,8 +6,10 @@ import { redirect } from 'next/navigation'
 import { logout } from '@/app/actions'
 import Link from 'next/link'
 import TodoItem from '@/components/TodoItem'
- 
 import EditProfileModal from '@/components/EditProfileModal'
+
+// ✅ 1. เพิ่มบรรทัดนี้: นำเข้าปุ่มลบที่เราเพิ่งสร้าง
+import RemoveFavoriteBtn from '@/components/remove-favorite-btn'
 
 export default async function ProfilePage() {
   const cookieStore = await cookies()
@@ -17,7 +20,7 @@ export default async function ProfilePage() {
     redirect('/login')
   }
 
-  // 1. ดึงข้อมูล User
+  // ดึงข้อมูล User
   const user = await db.user.findUnique({
     where: { id: Number(session.userId) },
     include: {
@@ -40,11 +43,10 @@ export default async function ProfilePage() {
 
   return (
     <div className="container mx-auto p-6 max-w-5xl">
-      {/* Header Profile */}
+      {/* ... (ส่วน Header และ Stats เหมือนเดิม ไม่ต้องแก้) ... */}
       <div className="flex flex-col md:flex-row justify-between items-center mb-10 bg-white p-6 rounded-xl shadow-sm border">
         <div className="flex items-center gap-4">
             <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center text-3xl overflow-hidden border-2 border-orange-200">
-                {/* ถ้ามีรูปภาพให้แสดงรูป ถ้าไม่มีแสดง icon */}
                 {user.image ? (
                   <img src={user.image} alt={user.name || "User"} className="w-full h-full object-cover" />
                 ) : (
@@ -54,8 +56,6 @@ export default async function ProfilePage() {
             <div>
                 <div className="flex items-center gap-2">
                   <h1 className="text-2xl font-bold text-gray-800">{user.name}</h1>
-                  
-                 
                   <EditProfileModal user={user} />
                 </div>
                 <p className="text-gray-500 text-sm">{user.email}</p>
@@ -68,11 +68,8 @@ export default async function ProfilePage() {
           </button>
         </form>
       </div>
-      
-      {/* ... ส่วน Stats Cards และ Sections อื่นๆ เหมือนเดิม ... */}
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-         {/* ... */}
-         {/* (คัดลอกส่วนที่เหลือของคุณมาวางต่อได้เลยครับ ไม่มีการเปลี่ยนแปลง) */}
          <div className="bg-blue-50 p-6 rounded-xl border border-blue-100 shadow-sm">
           <h3 className="font-bold text-blue-800 text-lg mb-2">สูตรของฉัน</h3>
           <p className="text-4xl font-bold text-blue-600">
@@ -95,7 +92,7 @@ export default async function ProfilePage() {
         <h2 className="text-xl font-bold mb-6 text-gray-800 flex items-center gap-2">
           รายการที่ถูกใจ
         </h2>
-        {/* ... favorites mapping code ... */}
+        
         {user.favorites.length === 0 ? (
           <div className="p-12 bg-gray-50 text-center rounded-xl border-2 border-dashed border-gray-300">
               <p className="text-gray-500 mb-2">คุณยังไม่มีสูตรอาหารที่ถูกใจ</p>
@@ -106,7 +103,8 @@ export default async function ProfilePage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {user.favorites.map((fav) => (
-              <div key={fav.id} className="bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition">
+              <div key={fav.id} className="bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition flex flex-col h-full">
+                {/* Image */}
                 <div className="h-40 bg-gray-100 relative">
                   {fav.recipe.imageUrl ? (
                     <img src={fav.recipe.imageUrl} alt={fav.recipe.title} className="w-full h-full object-cover" />
@@ -117,15 +115,25 @@ export default async function ProfilePage() {
                     {fav.recipe.category}
                   </span>
                 </div>
-                <div className="p-4">
+
+                {/* Content */}
+                <div className="p-4 flex flex-col flex-1">
                   <h3 className="font-bold text-gray-800 truncate mb-1">{fav.recipe.title}</h3>
                   <p className="text-xs text-gray-400 mb-4">โดย {fav.recipe.author.name}</p>
-                  <Link 
-                    href={`/recipes/${fav.recipe.id}`}
-                    className="block text-center w-full py-2 bg-gray-50 text-orange-600 text-sm font-bold rounded hover:bg-orange-50 transition border border-gray-100"
-                  >
-                    ดูวิธีทำ
-                  </Link>
+                  
+                  {/* ✅ 2. แก้ไขส่วนปุ่มกด: จัดให้ปุ่มดูสูตร กับ ปุ่มลบ อยู่คู่กัน */}
+                  <div className="mt-auto flex items-center gap-2">
+                    <Link 
+                      href={`/recipes/${fav.recipe.id}`}
+                      className="flex-1 text-center py-2 bg-gray-50 text-orange-600 text-sm font-bold rounded hover:bg-orange-50 transition border border-gray-100"
+                    >
+                      ดูวิธีทำ
+                    </Link>
+                    
+                    {/* ปุ่มลบที่เรา Import มา */}
+                    <RemoveFavoriteBtn recipeId={fav.recipe.id} />
+                  </div>
+
                 </div>
               </div>
             ))}

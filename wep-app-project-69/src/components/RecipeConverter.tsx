@@ -53,25 +53,7 @@ export default function RecipeConverter({ recipe, userId }: { recipe: RecipeData
             <p className="text-gray-500 text-sm">โดย{recipe.author.name || 'นิรนาม'}</p>
           </div>
 
-          {/* ปุ่มปรับจำนวนเสิร์ฟ */}
-          <div className="flex items-center gap-3 bg-orange-50 p-2 rounded-xl border border-orange-100">
-            <button 
-              onClick={() => setServings(Math.max(1, servings - 1))}
-              className="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-orange-600 font-bold hover:bg-orange-100 transition"
-            >
-              -
-            </button>
-            <div className="text-center px-2">
-               
-              <span className="text-xl font-bold text-gray-800 leading-none">{servings}</span>
-            </div>
-            <button 
-              onClick={() => setServings(servings + 1)}
-              className="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-orange-600 font-bold hover:bg-orange-100 transition"
-            >
-              +
-            </button>
-          </div>
+          
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 md:gap-12">
