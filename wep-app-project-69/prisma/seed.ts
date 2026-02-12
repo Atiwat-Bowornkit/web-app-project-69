@@ -34,8 +34,8 @@ async function main() {
       authorId: user.id,
       ingredients: {
         create: [
-          { ingredientId: egg.id, amount: 2 },
-          { ingredientId: pork.id, amount: 50 }
+          { ingredientId: egg.id, amount: "2" },
+          { ingredientId: pork.id, amount: "50" }
         ]
       }
     }
