@@ -49,7 +49,7 @@ export async function createRecipe(prevState: State, formData: FormData): Promis
         const name = parts[0].trim()
         if (!name) continue
         
-        const amount = parts[1] ? parseFloat(parts[1].trim()) : 1
+        const amount = parts[1] ? parts[1].trim() : ""
         const unit = parts[2]?.trim() || 'หน่วย'
 
         let ingredient = await db.ingredient.findUnique({ where: { name } })
