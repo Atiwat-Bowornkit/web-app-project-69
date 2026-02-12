@@ -10,7 +10,7 @@ type RecipeData = {
   steps: string
   imageUrl: string | null
   ingredients: {
-    amount: number
+    amount: string
     ingredient: {
       name: string
       unit: string
@@ -82,13 +82,7 @@ export default function RecipeConverter({ recipe, userId }: { recipe: RecipeData
             </h2>
             <ul className="space-y-3">
               {recipe.ingredients.map((item, index) => {
-                // สูตรคำนวณ: (ปริมาณตั้งต้น / เสิร์ฟตั้งต้น) * เสิร์ฟปัจจุบัน
-                const calculatedAmount = (item.amount / recipe.servings) * servings
-                
-                // จัด format ตัวเลข (ถ้าเป็นจำนวนเต็มไม่ต้องมีทศนิยม)
-                const displayAmount = Number.isInteger(calculatedAmount) 
-                  ? calculatedAmount 
-                  : calculatedAmount.toFixed(1)
+                const displayAmount = item.amount
 
                 return (
                   <li key={index} className="flex justify-between items-center text-gray-700 p-2 hover:bg-gray-50 rounded-lg transition">
